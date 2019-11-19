@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Serilog.Context;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -82,7 +81,6 @@ namespace CoreApplication.Middlewares
                     }
                     else
                     {
-                        
                         //_logger.LogInformation("{Parameters}", parameters);
                     }
                 }
