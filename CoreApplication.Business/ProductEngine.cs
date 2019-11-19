@@ -31,23 +31,51 @@ namespace CoreApplication.Business
                 Id = entity.Id,
                 Name = entity.Name,
                 Price = entity.Price,
-                Quantity = entity.Quantity
-
+                Quantity = entity.Quantity,
+                CategoryId = entity.CategoryId,
+                Description = entity.Description,
+                ImageUrl = entity.ImageUrl,
+                Status = entity.Status
             };
         }
 
-        public ProductDTO Put(ProductDTO product)
+        public ProductDTO Create(ProductDTO product)
         {
             var entity = new Product()
             {
                 Name = product.Name,
                 Price = product.Price,
                 Quantity = product.Quantity,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                Status = product.Status,
                 CreationDate = DateTime.Now,
                 LastModifydate = DateTime.Now
             };
 
             _productRepository.Insert(entity);
+            product.Id = entity.Id;
+
+            return product;
+        }
+        public ProductDTO Edit(ProductDTO product)
+        {
+            var entity = new Product()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Quantity = product.Quantity,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                Status = product.Status,
+                CreationDate = DateTime.Now,
+                LastModifydate = DateTime.Now
+            };
+
+            _productRepository.Update(entity);
             product.Id = entity.Id;
 
             return product;
@@ -61,12 +89,15 @@ namespace CoreApplication.Business
                 throw new ItemNotFoundException();
 
             return entities.Select(x => new ProductDTO() 
-            { 
+            {
                 Id = x.Id,
                 Name = x.Name,
                 Price = x.Price,
-                Quantity = x.Quantity
-
+                Quantity = x.Quantity,
+                CategoryId = x.CategoryId,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
+                Status = x.Status
             }).ToList();
 
         }

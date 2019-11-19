@@ -7,7 +7,8 @@ namespace CoreApplication.Business.Contracts
     public interface IProductEngine
     {
         ProductDTO Get(int id);
-        ProductDTO Put(ProductDTO product);
+        ProductDTO Create(ProductDTO product);
+        ProductDTO Edit(ProductDTO product);
         List<ProductDTO> List(int page, int size);
     }
 }

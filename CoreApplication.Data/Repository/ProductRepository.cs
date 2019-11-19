@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Transactions;
 
 namespace CoreApplication.Data
 {
@@ -18,7 +19,15 @@ namespace CoreApplication.Data
 
         public List<Product> List(int page, int size)
         {
-            return _context.Products.Skip((page - 1) * size).Take(size).ToList();
+            using (new TransactionScope(
+                    TransactionScopeOption.Required,
+                    new TransactionOptions
+                    {
+                        IsolationLevel = IsolationLevel.ReadUncommitted
+                    }))
+            {
+                return _context.Products.AsNoTracking().Skip((page - 1) * size).Take(size).ToList();
+            }
         }
 
     }
