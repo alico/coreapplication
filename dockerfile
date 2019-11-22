@@ -11,6 +11,7 @@ COPY CoreApplication.Data/*.csproj ./CoreApplication.Data/
 COPY CoreApplication.Data.Contracts/*.csproj ./CoreApplication.Data.Contracts/
 COPY CoreApplication.Data.Entity/*.csproj ./CoreApplication.Data.Entity/
 
+COPY CoreApplication.Business.DTO/*.csproj ./CoreApplication.Business.DTO/
 COPY CoreApplication.Business/*.csproj ./CoreApplication.Business/
 COPY CoreApplication.Business.Contracts/*.csproj ./CoreApplication.Business.Contracts/
 
@@ -36,6 +37,8 @@ WORKDIR /src/CoreApplication.Data
 RUN dotnet build -c Release -o /app
 
 
+WORKDIR /src/CoreApplication.Business.DTO
+RUN dotnet build -c Release -o /app
 
 WORKDIR /src/CoreApplication.Business.Contracts
 RUN dotnet build -c Release -o /app

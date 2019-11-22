@@ -77,10 +77,12 @@ namespace CoreApplication.Middlewares
                         var exception = (Exception)context.Items["exception"];
                         var errorId = context.Items["correlationId"].ToString();
 
+                        //TODO: Async LogAPI call
                         _logger.LogError(exception, "{ErrorId}{Parameters}", errorId, parameters);
                     }
                     else
                     {
+                        //TODO: Enable/Disable Logging from configuration and Async LogAPI call
                         //_logger.LogInformation("{Parameters}", parameters);
                     }
                 }

@@ -13,4 +13,8 @@
     <ProjectReference Include="..\CoreApplication.Common\CoreApplication.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientDTOs\" />
+  </ItemGroup>
+
 </Project>

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoreApplication.Business.DTO\CoreApplication.Business.DTO.csproj" />
     <ProjectReference Include="..\CoreApplication.DTO\CoreApplication.DTO.csproj" />
   </ItemGroup>
 

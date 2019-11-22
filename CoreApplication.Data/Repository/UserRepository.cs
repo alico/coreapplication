@@ -9,16 +9,15 @@ using System.Transactions;
 
 namespace CoreApplication.Data
 {
-    public class ProductRepository : BaseRepository<Product>, IProductRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public ProductRepository(BaseDataContext context ) : base(context)
+        public UserRepository(BaseDataContext context ) : base(context)
         {
         }
 
-        public List<Product> List(int page, int size)
+        public User Get(string userName, string password)
         {
-            return context.Products.Skip((page - 1) * size).Take(size).ToListWithNoLock();
+            return context.Users.Where(x => x.UserName == userName && x.Password == password).FirstOrDefaultWithNoLock();
         }
-
     }
 }

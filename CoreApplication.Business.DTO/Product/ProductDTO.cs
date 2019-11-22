@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
-namespace CoreApplication.DTO
+namespace CoreApplication.Business.DTO
 {
     public class ProductDTO
     {

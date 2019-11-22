@@ -2,7 +2,7 @@
 using CoreApplication.Common;
 using CoreApplication.Data.Contracts;
 using CoreApplication.Data.Entity;
-using CoreApplication.DTO;
+using CoreApplication.Business.DTO;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,16 +12,17 @@ namespace CoreApplication.Business
 {
     public class ProductEngine : IProductEngine
     {
-        IProductRepository _productRepository;
+        IServiceProvider _serviceProvider;
 
         public ProductEngine(IServiceProvider serviceProvider)
         {
-            _productRepository = serviceProvider.GetService<IProductRepository>();
+            _serviceProvider = serviceProvider;
         }
 
         public ProductDTO Get(int id)
         {
-            var entity = _productRepository.GetByID(id);
+            var productRepository = _serviceProvider.GetService<IProductRepository>();
+            var entity = productRepository.GetByID(id);
 
             if (entity == null)
                 throw new ItemNotFoundException();
@@ -41,6 +42,8 @@ namespace CoreApplication.Business
 
         public ProductDTO Create(ProductDTO product)
         {
+            var productRepository = _serviceProvider.GetService<IProductRepository>();
+
             var entity = new Product()
             {
                 Name = product.Name,
@@ -54,13 +57,15 @@ namespace CoreApplication.Business
                 LastModifydate = DateTime.Now
             };
 
-            _productRepository.Insert(entity);
+            productRepository.Insert(entity);
             product.Id = entity.Id;
 
             return product;
         }
         public ProductDTO Edit(ProductDTO product)
         {
+            var productRepository = _serviceProvider.GetService<IProductRepository>();
+
             var entity = new Product()
             {
                 Id = product.Id,
@@ -75,7 +80,7 @@ namespace CoreApplication.Business
                 LastModifydate = DateTime.Now
             };
 
-            _productRepository.Update(entity);
+            productRepository.Update(entity);
             product.Id = entity.Id;
 
             return product;
@@ -83,12 +88,13 @@ namespace CoreApplication.Business
 
         public List<ProductDTO> List(int page, int size)
         {
-            var entities = _productRepository.List(page, size);
+            var productRepository = _serviceProvider.GetService<IProductRepository>();
+            var entities = productRepository.List(page, size);
 
             if (entities == null)
                 throw new ItemNotFoundException();
 
-            return entities.Select(x => new ProductDTO() 
+            return entities.Select(x => new ProductDTO()
             {
                 Id = x.Id,
                 Name = x.Name,

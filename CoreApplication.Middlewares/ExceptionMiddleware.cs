@@ -28,8 +28,5 @@ namespace CoreApplication.Middlewares
                 context.Items.Add("correlationId", Guid.NewGuid());
             }
         }
-
-
-
     }
 }

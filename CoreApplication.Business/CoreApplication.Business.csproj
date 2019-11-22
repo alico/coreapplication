@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreApplication.Business.Contracts\CoreApplication.Business.Contracts.csproj" />
+    <ProjectReference Include="..\CoreApplication.Business.DTO\CoreApplication.Business.DTO.csproj" />
     <ProjectReference Include="..\CoreApplication.Common\CoreApplication.Common.csproj" />
     <ProjectReference Include="..\CoreApplication.Data.Contracts\CoreApplication.Data.Contracts.csproj" />
   </ItemGroup>

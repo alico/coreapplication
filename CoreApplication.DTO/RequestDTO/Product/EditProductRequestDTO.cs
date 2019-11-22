@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CoreApplication.DTO.RequestDTO.Product
+namespace CoreApplication.DTO.RequestDTO
 {
     public class EditProductRequestDTO
     {

@@ -1,4 +1,4 @@
-﻿using CoreApplication.DTO;
+﻿using CoreApplication.Business.DTO;
 using System;
 using System.Collections.Generic;
 

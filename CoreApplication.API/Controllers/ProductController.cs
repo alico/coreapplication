@@ -1,52 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CoreApplication.Business.Contracts;
 using Microsoft.Extensions.DependencyInjection;
-using CoreApplication.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using CoreApplication.DTO.RequestDTO.Product;
+using CoreApplication.DTO.RequestDTO;
 using CoreApplication.Common;
+using CoreApplication.Business.DTO;
 
 namespace CoreApplication.API.Controllers
 {
     public class ProductController : BaseController
     {
-        IProductEngine _productEngine;
-   
+        private IServiceProvider _serviceProvider;
 
-        private IHostingEnvironment _hostingEnvironment;
-
-        public ProductController(IServiceProvider serviceProvider, ILogger<ProductController> logger, IHostingEnvironment environment) : base(logger)
+        public ProductController(IServiceProvider serviceProvider, ILogger<ProductController> logger) : base(logger)
         {
-            _productEngine = serviceProvider.GetService<IProductEngine>();
-            _hostingEnvironment = environment;
-           
+            _serviceProvider = serviceProvider;
         }
 
         [HttpGet]
         [HttpGet("all")]
         public IList<ProductDTO> All(int page = 1, int size = 10)
         {
-            //base._logger.LogInformation("test");
-            return _productEngine.List(page, size);
+            var productEngine = _serviceProvider.GetService<IProductEngine>();
+            return productEngine.List(page, size);
         }
 
         [HttpGet("get")]
         public ProductDTO Get(int id)
         {
-            return _productEngine.Get(id);
+            var productEngine = _serviceProvider.GetService<IProductEngine>();
+            return productEngine.Get(id);
         }
 
         [HttpPost("create")]
         public ProductDTO Create([FromForm]CreateProductRequestDTO collection)
         {
+            var productEngine = _serviceProvider.GetService<IProductEngine>();
             var imageUrl = FileHelper.UploadFile(collection.File);
 
             var product = new ProductDTO()
@@ -60,12 +51,13 @@ namespace CoreApplication.API.Controllers
                 Status = collection.Status
             };
 
-            return _productEngine.Create(product);
+            return productEngine.Create(product);
         }
 
         [HttpPost("edit")]
         public ProductDTO Edit([FromForm]EditProductRequestDTO collection)
         {
+            var productEngine = _serviceProvider.GetService<IProductEngine>();
             var imageUrl = FileHelper.UploadFile(collection.File);
 
             var product = new ProductDTO()
@@ -79,7 +71,7 @@ namespace CoreApplication.API.Controllers
                 Status = collection.Status
             };
 
-            return _productEngine.Edit(product);
+            return productEngine.Edit(product);
         }
     }
 
