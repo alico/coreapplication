@@ -6,6 +6,6 @@ namespace CoreApplication.Business.Contracts
 {
     public interface IAccountEngine
     {
-        bool Login(LoginDTO request);
+        UserDTO Login(LoginDTO request);
     }
 }

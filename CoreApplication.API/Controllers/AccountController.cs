@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CoreApplication.DTO.RequestDTO;
 using CoreApplication.Business.DTO;
+using CoreApplication.DTO;
 
 namespace CoreApplication.API.Controllers
 {
@@ -18,17 +19,30 @@ namespace CoreApplication.API.Controllers
             _serviceProvider = serviceProvider;
         }
 
+
         [HttpPost("login")]
-        public bool Login(LoginRequestDTO loginRequestDTO)
+        public UserResponseDTO Login(LoginRequestDTO loginRequestDTO)
         {
-            var userEngine = _serviceProvider.GetService<IAccountEngine>();
+            var accountEngine = _serviceProvider.GetService<IAccountEngine>();
             var loginDto = new LoginDTO()
             { 
                 UserName = loginRequestDTO.UserName,
                 Password = loginRequestDTO.Password
             };
 
-            return userEngine.Login(loginDto);
+            var user = accountEngine.Login(loginDto);
+
+            var response = new UserResponseDTO()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Status = user.Status,
+                Surname = user.Surname,
+                UserName = user.UserName
+            };
+
+            return response;
         }
     }
 }

@@ -20,12 +20,20 @@ namespace CoreApplication.Business
             _serviceProvider = serviceProvider;
         }
 
-        public bool Login(LoginDTO loginDTO)
+        public UserDTO Login(LoginDTO loginDTO)
         {
-            var user = _serviceProvider.GetService<IUserRepository>();  
+            var userRepository = _serviceProvider.GetService<IUserRepository>();
+            var user = userRepository.Get(loginDTO.UserName, loginDTO.Password);
 
-
-            return user != null;
+            return new UserDTO()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Status = user.Status,
+                Surname = user.Surname,
+                UserName = user.UserName
+            };
         }
     }
 }
