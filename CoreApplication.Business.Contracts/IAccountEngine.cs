@@ -7,5 +7,6 @@ namespace CoreApplication.Business.Contracts
     public interface IAccountEngine
     {
         UserDTO Login(LoginDTO request);
+        UserDTO Create(UserDTO request);
     }
 }

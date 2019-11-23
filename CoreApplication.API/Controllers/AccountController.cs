@@ -9,7 +9,6 @@ using CoreApplication.DTO;
 
 namespace CoreApplication.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class AccountController : BaseController
     {
@@ -21,16 +20,46 @@ namespace CoreApplication.API.Controllers
 
 
         [HttpPost("login")]
-        public UserResponseDTO Login(LoginRequestDTO loginRequestDTO)
+        public UserResponseDTO Login(LoginRequestDTO request)
         {
             var accountEngine = _serviceProvider.GetService<IAccountEngine>();
             var loginDto = new LoginDTO()
             { 
-                UserName = loginRequestDTO.UserName,
-                Password = loginRequestDTO.Password
+                UserName = request.UserName,
+                Password = request.Password
             };
 
             var user = accountEngine.Login(loginDto);
+
+            var response = new UserResponseDTO()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Status = user.Status,
+                Surname = user.Surname,
+                UserName = user.UserName
+            };
+
+            return response;
+        }
+
+        [HttpPost("create")]
+        public UserResponseDTO Create(AccountCreateRequestDTO request)
+        {
+            var accountEngine = _serviceProvider.GetService<IAccountEngine>();
+
+            var userDTO = new UserDTO()
+            {
+                UserName = request.UserName,
+                Password = request.Password,
+                Email = request.Email,
+                Name = request.Name,
+                Surname = request.Surname
+
+            };
+
+            var user = accountEngine.Create(userDTO);
 
             var response = new UserResponseDTO()
             {

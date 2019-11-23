@@ -19,7 +19,6 @@ namespace CoreApplication.Data
             {
                 return sequence.FirstOrDefault();
             }
-           
         }
 
         public static List<T> ToListWithNoLock<T>(this IEnumerable<T> sequence)

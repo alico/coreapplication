@@ -62,6 +62,7 @@ namespace CoreApplication.API.Controllers
 
             var product = new ProductDTO()
             {
+                Id = collection.Id,
                 CategoryId = collection.CategoryId,
                 Description = collection.Description,
                 ImageUrl = imageUrl,

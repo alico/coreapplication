@@ -60,6 +60,9 @@ namespace CoreApplication.Data
 
         public virtual void Insert(TEntity entity)
         {
+            entity.CreationDate = DateTime.Now;
+            entity.LastModifydate = DateTime.Now;
+
             dbSet.Add(entity);
             context.SaveChanges();
         }
@@ -81,8 +84,11 @@ namespace CoreApplication.Data
 
         public virtual void Update(TEntity entityToUpdate)
         {
+            entityToUpdate.LastModifydate = DateTime.Now;
+
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
+            context.SaveChanges();
         }
     }
 }

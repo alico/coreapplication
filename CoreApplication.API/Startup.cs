@@ -1,22 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+
 using CoreApplication.Business;
 using CoreApplication.Business.Contracts;
 using CoreApplication.Data;
 using CoreApplication.Data.Contracts;
-using CoreApplication.Data.Contracts.Context;
 using CoreApplication.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -40,7 +32,9 @@ namespace CoreApplication.API
             services.AddControllers();
 
             services.AddTransient<IProductEngine, ProductEngine>();
+            services.AddTransient<IAccountEngine, AccountEngine>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddDbContext<SQLDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
             services.AddTransient<BaseDataContext, SQLDbContext>();
 

@@ -20,6 +20,26 @@ namespace CoreApplication.Business
             _serviceProvider = serviceProvider;
         }
 
+        public UserDTO Create(UserDTO userDto)
+        {
+            var userRepository = _serviceProvider.GetService<IUserRepository>();
+
+            var entity = new User() {
+                Id = userDto.Id,
+                Name = userDto.Name,
+                Email = userDto.Email,
+                Status = userDto.Status,
+                Surname = userDto.Surname,
+                UserName = userDto.UserName,
+                Password  = userDto.Password
+            };
+
+            userRepository.Insert(entity);
+            userDto.Id = entity.Id;
+
+            return userDto;
+        }
+
         public UserDTO Login(LoginDTO loginDTO)
         {
             var userRepository = _serviceProvider.GetService<IUserRepository>();
