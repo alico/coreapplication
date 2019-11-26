@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 namespace CoreApplication.Data.Contracts
 {
-    public interface IProductRepository : IRepositoryBase<Product>
+    public interface IBasketRepository : IRepositoryBase<Basket>
     {
-        List<Product> List(int page, int size);
-
+        Basket Get (int userId);
     }
 }

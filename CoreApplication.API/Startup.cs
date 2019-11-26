@@ -32,9 +32,12 @@ namespace CoreApplication.API
             services.AddControllers();
 
             services.AddTransient<IProductEngine, ProductEngine>();
+            services.AddTransient<IBasketEngine, BasketEngine>();
             services.AddTransient<IAccountEngine, AccountEngine>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IBasketRepository, BasketRepository>();
+            services.AddTransient<IBasketItemRepository, BasketItemRepository>();
             services.AddDbContext<SQLDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
             services.AddTransient<BaseDataContext, SQLDbContext>();
 

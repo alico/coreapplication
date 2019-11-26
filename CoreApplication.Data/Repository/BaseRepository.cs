@@ -6,19 +6,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 
 namespace CoreApplication.Data
 {
-    public abstract class BaseRepository<TEntity> : IRepositoryBase<TEntity> where TEntity : BaseEntity                                                                                   
+    public abstract class BaseRepository<TEntity> : IRepositoryBase<TEntity> where TEntity : BaseEntity
     {
-        internal BaseDataContext context;
-        internal DbSet<TEntity> dbSet;
+        internal IServiceProvider _serviceProvider;
 
-        public BaseRepository(BaseDataContext context)
+        public BaseRepository(IServiceProvider serviceProvider)
         {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();
+            _serviceProvider = serviceProvider;
         }
 
         public virtual IEnumerable<TEntity> Get(
@@ -26,69 +25,97 @@ namespace CoreApplication.Data
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = dbSet;
-
-            if (filter != null)
+            using (var context = _serviceProvider.GetService<BaseDataContext>())
             {
-                query = query.Where(filter);
-            }
+                DbSet<TEntity> dbSet = context.Set<TEntity>();
+                dbSet = context.Set<TEntity>();
 
-            if (includeProperties != null)
-            {
-                foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+
+                IQueryable<TEntity> query = dbSet;
+
+                if (filter != null)
                 {
-                    query = query.Include(includeProperty);
+                    query = query.Where(filter);
                 }
-            }
+
+                if (includeProperties != null)
+                {
+                    foreach (var includeProperty in includeProperties.Split
+                    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
 
 
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
+                if (orderBy != null)
+                {
+                    return orderBy(query).ToList();
+                }
+                else
+                {
+                    return query.ToList();
+                }
             }
         }
 
         public virtual TEntity GetByID(object id)
         {
-            return dbSet.Find(id);
+            using (var context = _serviceProvider.GetService<BaseDataContext>())
+            {
+                DbSet<TEntity> dbSet = context.Set<TEntity>();
+                dbSet = context.Set<TEntity>();
+                return dbSet.Find(id);
+            }
         }
 
         public virtual void Insert(TEntity entity)
         {
-            entity.CreationDate = DateTime.Now;
-            entity.LastModifydate = DateTime.Now;
+            using (var context = _serviceProvider.GetService<BaseDataContext>())
+            {
+                DbSet<TEntity> dbSet = context.Set<TEntity>();
+                entity.CreationDate = DateTime.Now;
+                entity.LastModifydate = DateTime.Now;
 
-            dbSet.Add(entity);
-            context.SaveChanges();
+                dbSet.Add(entity);
+                context.SaveChanges();
+            }
         }
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
-            Delete(entityToDelete);
+            using (var context = _serviceProvider.GetService<BaseDataContext>())
+            {
+                DbSet<TEntity> dbSet = context.Set<TEntity>();
+                TEntity entityToDelete = dbSet.Find(id);
+                Delete(entityToDelete);
+            }
         }
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            using (var context = _serviceProvider.GetService<BaseDataContext>())
             {
-                dbSet.Attach(entityToDelete);
+                DbSet<TEntity> dbSet = context.Set<TEntity>();
+                if (context.Entry(entityToDelete).State == EntityState.Detached)
+                {
+                    dbSet.Attach(entityToDelete);
+                }
+                dbSet.Remove(entityToDelete);
             }
-            dbSet.Remove(entityToDelete);
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            entityToUpdate.LastModifydate = DateTime.Now;
+            using (var context = _serviceProvider.GetService<BaseDataContext>())
+            {
+                DbSet<TEntity> dbSet = context.Set<TEntity>();
+                entityToUpdate.LastModifydate = DateTime.Now;
 
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
-            context.SaveChanges();
+                dbSet.Attach(entityToUpdate);
+                context.Entry(entityToUpdate).State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace CoreApplication.API.Controllers
     public class AccountController : BaseController
     {
         private IServiceProvider _serviceProvider;
-        public AccountController(IServiceProvider serviceProvider, ILogger<AccountController> logger) : base(logger)
+        public AccountController(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
@@ -56,7 +56,6 @@ namespace CoreApplication.API.Controllers
                 Email = request.Email,
                 Name = request.Name,
                 Surname = request.Surname
-
             };
 
             var user = accountEngine.Create(userDTO);

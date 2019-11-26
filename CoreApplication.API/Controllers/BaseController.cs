@@ -14,6 +14,11 @@ namespace CoreApplication.API.Controllers
     {
         protected readonly ILogger<BaseController> _logger;
 
+        public BaseController()
+        {
+
+        }
+
         public BaseController(ILogger<BaseController> logger)
         {
             _logger = logger;
