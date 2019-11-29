@@ -28,7 +28,7 @@ namespace CoreApplication.API.Controllers
                 ProductId = request.ProductId,
                 Quantity = request.Quantity,
                 UserId = request.UserId
-            };
+            }; 
 
             var basketEngine = _serviceProvider.GetService<IBasketEngine>();
             basketEngine.Add(basketItem);

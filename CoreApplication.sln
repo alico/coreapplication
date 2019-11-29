@@ -31,14 +31,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{6C4F6F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{931A8FB8-9270-4C86-A960-B4592AC9B806}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
 		dockerfile = dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApplication.Business.DTO", "CoreApplication.Business.DTO\CoreApplication.Business.DTO.csproj", "{48F70203-51B6-4C4E-9004-41D4A7BF00E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApplication.Business.DTO", "CoreApplication.Business.DTO\CoreApplication.Business.DTO.csproj", "{48F70203-51B6-4C4E-9004-41D4A7BF00E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{FF12BAEB-FA2F-4EF3-B0B4-50D68F5FD559}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApplication.Business.Test", "CoreApplication.Business.Test\CoreApplication.Business.Test.csproj", "{00439384-F6F2-49EB-8748-EB3786BAAC7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApplication.Business.Test", "CoreApplication.Business.Test\CoreApplication.Business.Test.csproj", "{00439384-F6F2-49EB-8748-EB3786BAAC7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

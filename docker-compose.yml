@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: alikizildag/coreapplication
+    ports:
+      - 80:80
+    depends_on:
+      - testdb
+
+  testdb:
+    image: mcr.microsoft.com/mssql/server:latest
+    environment:
+      SA_PASSWORD: "Qwert1234="
+      ACCEPT_EULA: "Y"

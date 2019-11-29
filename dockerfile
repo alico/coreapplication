@@ -1,11 +1,14 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 80:80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
 COPY CoreApplication.sln ./
 COPY CoreApplication.Common/*.csproj ./CoreApplication.Common/
+
+COPY CoreApplication.Business.Test/*.csproj ./CoreApplication.Business.Test/
+
 
 COPY CoreApplication.Data/*.csproj ./CoreApplication.Data/
 COPY CoreApplication.Data.Contracts/*.csproj ./CoreApplication.Data.Contracts/
@@ -25,6 +28,8 @@ COPY . .
 WORKDIR /src/CoreApplication.Common
 RUN dotnet build -c Release -o /app
 
+WORKDIR /src/CoreApplication.Business.Test
+RUN dotnet build -c Release -o /app
 
 
 WORKDIR /src/CoreApplication.Data.Entity
