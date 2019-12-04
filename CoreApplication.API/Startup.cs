@@ -48,9 +48,7 @@ namespace CoreApplication.API
 
             //Swagger
             app.UseSwaggerConfiguration();
-            loggerFactory.AddSerilog();
-
-            LogHelper.ConfigureLogging();
+            loggerFactory.UseLogger();
 
             app.UseMiddleware(typeof(ResponseWrapper));
             app.UseMiddleware(typeof(LoggingMiddleware));
