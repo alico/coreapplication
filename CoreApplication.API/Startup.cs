@@ -48,8 +48,12 @@ namespace CoreApplication.API
 
             //Swagger
             app.UseSwaggerConfiguration();
+            loggerFactory.AddSerilog();
+
+            LogHelper.ConfigureLogging();
 
             app.UseMiddleware(typeof(ResponseWrapper));
+            app.UseMiddleware(typeof(LoggingMiddleware));
             app.UseMiddleware(typeof(ExceptionMiddleware));
 
             app.UseRouting();

@@ -20,20 +20,5 @@ namespace CoreApplication.Bootstrapper
 
             return services;
         }
-
-        public static IServiceCollection RegisterRepositories(this IServiceCollection services)
-        {
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IBasketRepository, BasketRepository>();
-            services.AddTransient<IBasketItemRepository, BasketItemRepository>();
-            return services;
-        }
-
-        public static IServiceCollection RegisterDBContext(this IServiceCollection services)
-        {
-            services.AddTransient<BaseDataContext, SQLDbContext>();
-            return services;
-        }
     }
 }
