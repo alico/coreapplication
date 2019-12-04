@@ -1,8 +1,3 @@
-
-using CoreApplication.Business;
-using CoreApplication.Business.Contracts;
-using CoreApplication.Data;
-using CoreApplication.Data.Contracts;
 using CoreApplication.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +11,7 @@ using Serilog.Events;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.File;
 using Serilog.Sinks.Async;
+using CoreApplication.Bootstrapper;
 
 namespace CoreApplication.API
 {
@@ -29,19 +25,15 @@ namespace CoreApplication.API
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("PostgreSQLConnection");
+
+            //Swagger
+            services.RegisterSwager();
             services.AddControllers();
-            services.RegisterEngines();
+            services.RegisterDBContext(connectionString);
             services.RegisterRepositories();
-            services.RegisterDBContext();
-
-            services.AddDbContext<SQLDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
-
-            services.AddCors(o => o.AddPolicy("DefaultPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+            services.RegisterEngines();
+            services.RegisterCorsPolicy();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -50,26 +42,20 @@ namespace CoreApplication.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors("DefaultPolicy");
-            loggerFactory.AddSerilog();
-
-            LogHelper.ConfigureLogging();
-
             app.UseHttpsRedirection();
 
+            //Swagger
+            app.UseSwaggerConfiguration();
+
             app.UseMiddleware(typeof(ResponseWrapper));
-            app.UseMiddleware(typeof(LoggingMiddleware));
             app.UseMiddleware(typeof(ExceptionMiddleware));
 
             app.UseRouting();
 
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<SQLDbContext>();
-                context.Database.EnsureCreated();
-            }
-
-            app.UseAuthorization();
+            //Creation DB - CodeFirst
+            app.EnsureDBCreated();
 
             app.UseEndpoints(endpoints =>
             {

@@ -19,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreApplication.Business.Contracts\CoreApplication.Business.Contracts.csproj" />
-    <ProjectReference Include="..\CoreApplication.Business\CoreApplication.Business.csproj" />
-    <ProjectReference Include="..\CoreApplication.Data\CoreApplication.Data.csproj" />
+    <ProjectReference Include="..\CoreApplication.Bootstrapper\CoreApplication.Bootstrapper.csproj" />
     <ProjectReference Include="..\CoreApplication.DTO\CoreApplication.DTO.csproj" />
     <ProjectReference Include="..\CoreApplication.Middlewares\CoreApplication.Middlewares.csproj" />
   </ItemGroup>

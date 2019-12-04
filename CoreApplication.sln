@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{FF12BAEB-F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApplication.Business.Test", "CoreApplication.Business.Test\CoreApplication.Business.Test.csproj", "{00439384-F6F2-49EB-8748-EB3786BAAC7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApplication.Bootstrapper", "CoreApplication.Bootstrapper\CoreApplication.Bootstrapper.csproj", "{1B484E7E-163B-423E-A87B-66C9A996A4B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{00439384-F6F2-49EB-8748-EB3786BAAC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00439384-F6F2-49EB-8748-EB3786BAAC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00439384-F6F2-49EB-8748-EB3786BAAC7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B484E7E-163B-423E-A87B-66C9A996A4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B484E7E-163B-423E-A87B-66C9A996A4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B484E7E-163B-423E-A87B-66C9A996A4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B484E7E-163B-423E-A87B-66C9A996A4B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

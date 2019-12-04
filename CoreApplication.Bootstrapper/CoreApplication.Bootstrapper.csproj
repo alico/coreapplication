@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreApplication.Business.Contracts\CoreApplication.Business.Contracts.csproj" />
+    <ProjectReference Include="..\CoreApplication.Business\CoreApplication.Business.csproj" />
+    <ProjectReference Include="..\CoreApplication.Data\CoreApplication.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -21,6 +21,7 @@ COPY CoreApplication.Business.Contracts/*.csproj ./CoreApplication.Business.Cont
 COPY CoreApplication.API/*.csproj ./CoreApplication.API/
 COPY CoreApplication.DTO/*.csproj ./CoreApplication.DTO/
 COPY CoreApplication.Middlewares/*.csproj ./CoreApplication.Middlewares/
+COPY CoreApplication.Bootstrapper/*.csproj ./CoreApplication.Bootstrapper/
 
 RUN dotnet restore
 COPY . .
@@ -57,6 +58,9 @@ WORKDIR /src/CoreApplication.Middlewares
 RUN dotnet build -c Release -o /app
 
 WORKDIR /src/CoreApplication.DTO
+RUN dotnet build -c Release -o /app
+
+WORKDIR /src/CoreApplication.Bootstrapper
 RUN dotnet build -c Release -o /app
 
 
