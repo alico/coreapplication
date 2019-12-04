@@ -25,7 +25,7 @@ namespace CoreApplication.API
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("PostgreSQLConnection");
+            var connectionString = Configuration.GetConnectionString("SQLConnection");
 
             //Swagger
             services.RegisterSwager();

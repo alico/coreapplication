@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{FF12BAEB-F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApplication.Business.Test", "CoreApplication.Business.Test\CoreApplication.Business.Test.csproj", "{00439384-F6F2-49EB-8748-EB3786BAAC7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApplication.Bootstrapper", "CoreApplication.Bootstrapper\CoreApplication.Bootstrapper.csproj", "{1B484E7E-163B-423E-A87B-66C9A996A4B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApplication.Bootstrapper", "CoreApplication.Bootstrapper\CoreApplication.Bootstrapper.csproj", "{1B484E7E-163B-423E-A87B-66C9A996A4B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +113,7 @@ Global
 		{E1538AE5-432C-47DD-A5A8-A841CAD7105E} = {1737F7CF-6B79-4CA9-83A5-BC3C7C2D5CD1}
 		{48F70203-51B6-4C4E-9004-41D4A7BF00E3} = {1737F7CF-6B79-4CA9-83A5-BC3C7C2D5CD1}
 		{00439384-F6F2-49EB-8748-EB3786BAAC7F} = {FF12BAEB-FA2F-4EF3-B0B4-50D68F5FD559}
+		{1B484E7E-163B-423E-A87B-66C9A996A4B9} = {02246F6E-280E-4F26-A191-73EA8F981DC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA05B6C4-53B3-4765-A1AD-0C2FD9F76B50}
